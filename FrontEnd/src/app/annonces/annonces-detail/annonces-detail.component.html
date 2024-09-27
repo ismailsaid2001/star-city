@@ -1,0 +1,19 @@
+
+  <nz-modal [(nzVisible)]="isVisibleModal" [nzTitle]="Title" (nzOnCancel)="closeModal()">
+    
+    <ng-template #Title>
+      <span>{{ annonce.title }}</span>
+    </ng-template>
+
+    <div *nzModalContent>
+      <img src="assets/images/{{ annonce.image }}" width=40%>
+      <p *ngIf='annonce.date'><b>Date :</b> {{ annonce.date | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><b>Description :</b> {{ annonce.description }}</p>
+      <i>Créé le {{ annonce.dateCreation | date:'dd/MM/yyyy' }}</i>
+    </div>
+
+    <div *nzModalFooter>
+      <button nz-button nzType="primary" (click)="closeModal()">Fermer</button>
+    </div>
+
+  </nz-modal>

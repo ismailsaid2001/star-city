@@ -1,0 +1,33 @@
+    <nz-layout>
+      <nz-header>
+
+        <div>
+          <a routerLink="/welcome-page">
+            <img class="logo" src="https://img.freepik.com/free-vector/3d-metal-star-isolated_1308-117760.jpg" alt="logo Fortil"/>
+          </a>
+        </div>
+
+        <ul *ngIf="userIsLogin()" nz-menu nzTheme="dark" nzMode="horizontal">
+          <li nz-menu-item routerLink="/annonces">
+            <span nz-icon nzType="notification" nzTheme="outline" style="margin: 10px"></span>
+            ANNONCES
+          </li>
+          <li nz-submenu nzTitle= {{authService.getNameUser()}} nzIcon="user" class="last-menu-item">
+            <ul>
+              <li nz-menu-item routerLink="/user/info">Profil</li>
+              <li nz-menu-item routerLink="/user/annonces">Gérer mes annonces</li>
+              <li nz-menu-item (click)="deconnexion()">Déconnexion</li>
+            </ul>
+          </li>
+        </ul>
+      </nz-header>
+
+      <nz-content>
+        <nz-breadcrumb>
+        </nz-breadcrumb>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <nz-footer>© 2024 Star City. All Rights Reserved To Med.O, Anas.C, Ismail.S, Ahmed.B and Oussema.A.</nz-footer>
+    </nz-layout>

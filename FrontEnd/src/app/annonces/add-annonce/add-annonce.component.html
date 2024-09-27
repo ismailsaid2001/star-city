@@ -1,0 +1,65 @@
+    <h3 *ngIf="isAddForm" nz-typography>Nouvelle annonce</h3>
+    <h3 *ngIf="!isAddForm" nz-typography>Modifier votre annonce</h3>
+
+    <form nz-form [formGroup]="addAnnonceForm" (ngSubmit)="submitForm()">
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Catégorie</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+          <nz-select formControlName="categorie" [(ngModel)]="selectedOption" (ngModelChange)="onCategoryChange($event)">
+            <nz-option *ngFor="let option of optionsCategories" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item *ngIf="selectedOption === 'covoiturage'">
+        <nz-form-label [nzSpan]="7">Date</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <nz-date-picker
+            nzShowTime
+            nzFormat="dd-MM-yyyy HH:mm"
+            formControlName="date"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Titre</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Minimum 3 caractères svp">
+          <input nz-input formControlName="title" minlength="3"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Remplissez ce champs svp !">
+          <nz-textarea-count [nzMaxCharacterCount]="2000">
+            <textarea formControlName="description" nz-input rows="4" style="width: 300px;" placeholder="Description de votre annonce..."></textarea>
+          </nz-textarea-count>
+        </nz-form-control>
+      </nz-form-item>
+ 
+      <nz-form-item *ngIf="selectedOption === 'Vente' || selectedOption === 'autre'">
+        <nz-form-label [nzSpan]="7">Image</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+          <nz-upload
+          [nzAction]="'http://localhost:3000/files/upload'"
+          (nzChange)="handleChange($event)"
+          >
+          <button nz-button type="button">
+            <span nz-icon nzType="upload"></span>
+            Importer
+          </button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>    
+
+      <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+          <button nz-button nzType="primary" type="submit" [disabled]="!addAnnonceForm.valid">Valider</button>
+          <button nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+  
